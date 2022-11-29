@@ -25,8 +25,11 @@ public class PlayerMover : MonoBehaviour
     private enum Direction
     {
         Right,
-        Left
+        Left,
+        None
     }
+
+    private Direction direction = Direction.None;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +62,12 @@ public class PlayerMover : MonoBehaviour
         }
         else
         {
-            // ‚±‚±‚Ìˆø”‚ğ‚Ç‚¿‚ç‚ÉˆÚ“®§ŒÀ‚ª‚©‚©‚Á‚½‚©‚ÅŒˆ‚ß‚é
-            FixPos(Direction.Right);
+            if ((!Input.GetKey(KeyCode.RightArrow) && direction == Direction.Right) || (!Input.GetKey(KeyCode.LeftArrow) && direction == Direction.Left))
+            {
+                // ‚±‚±‚Ìˆø”‚ğ‚Ç‚¿‚ç‚ÉˆÚ“®§ŒÀ‚ª‚©‚©‚Á‚½‚©‚ÅŒˆ‚ß‚é
+                FixPos(direction);
+            }
+            
         }
     }
 
@@ -68,11 +75,11 @@ public class PlayerMover : MonoBehaviour
     private float InputPlayerSpeed()
     {
         float speed = 0.0f;
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) && direction == Direction.None)
         {
             speed = speedMax;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) && direction == Direction.None)
         {
             speed = -speedMax;
         }
@@ -81,10 +88,31 @@ public class PlayerMover : MonoBehaviour
 
     private bool IsMove()
     {
-        if (startPos - moveRange < this.transform.position.x && this.transform.position.x < startPos + moveRange)
+        int count = 0;
+        if (startPos - moveRange < this.transform.position.x)
         {
+            count++;
+        }
+        else
+        {
+            direction = Direction.Left;
+        }
+
+        if (this.transform.position.x < startPos + moveRange)
+        {
+            count++;
+        }
+        else
+        {
+            direction = Direction.Right;
+        }
+
+        if (count == 2)
+        {
+            direction = Direction.None;
             return true;
         }
+
         return false;
     }
 
