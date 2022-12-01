@@ -19,6 +19,7 @@ public class SoccerBall : MonoBehaviour
     [SerializeField] private float debugSpeed;
 
     private Vector3 aimPos;
+    private Vector3 initPos;
     private float speed;
 
     private Dictionary<State, Action> stateFuncs;
@@ -26,14 +27,20 @@ public class SoccerBall : MonoBehaviour
     private Vector3 destinationVecNorm; // 目的地に進む正規化されたベクトル
     private Rigidbody rigidbody;
 
-    enum State
+    public enum State
     {
         Idle,
         Run,
-        Init
+        Init,
+        Wait
     };
 
     private State state;
+
+    public void SetState(State state)
+    {
+        this.state = state;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +55,7 @@ public class SoccerBall : MonoBehaviour
             aimPos = data.AimPos;
             speed = data.Speed;
         }
+        initPos = this.transform.position;
         rigidbody = GetComponent<Rigidbody>();
         destinationVecNorm = new Vector3();
         destinationVecNorm = Vector3.Normalize(aimPos - transform.position);
@@ -55,6 +63,7 @@ public class SoccerBall : MonoBehaviour
         stateFuncs[State.Idle] = UpdateStateIdle;
         stateFuncs[State.Run] = UpdateStateRun;
         stateFuncs[State.Init] = UpdateStateInit;
+        stateFuncs[State.Wait] = UpdateStateWait;
         state = State.Idle;
     }
 
@@ -82,6 +91,12 @@ public class SoccerBall : MonoBehaviour
         rigidbody.AddForce(destinationVecNorm.x * speed * 100.0f, 0.0f, destinationVecNorm.z * speed * 100.0f);
     }
 
+    private IEnumerator WaitTime(float time,State state)
+    {
+        yield return new WaitForSeconds(time);
+        this.state = state;
+    }
+
     //-------------------
     // IdleState
     //-------------------
@@ -104,6 +119,16 @@ public class SoccerBall : MonoBehaviour
     //-------------------
     private void UpdateStateInit()
     {
+        rigidbody.velocity = Vector3.zero;
+        this.transform.position = initPos;
+        state = State.Wait;
+        StartCoroutine(WaitTime(0.5f, State.Idle));
+    }
 
+    //-------------------
+    // WaitState
+    //-------------------
+    private void UpdateStateWait()
+    {
     }
 }
