@@ -32,7 +32,8 @@ public class SoccerBall : MonoBehaviour
         Idle,
         Run,
         Init,
-        Wait
+        Wait,
+        End
     };
 
     private State state;
@@ -64,6 +65,7 @@ public class SoccerBall : MonoBehaviour
         stateFuncs[State.Run] = UpdateStateRun;
         stateFuncs[State.Init] = UpdateStateInit;
         stateFuncs[State.Wait] = UpdateStateWait;
+        stateFuncs[State.End] = UpdateStateEnd;
         state = State.Idle;
     }
 
@@ -130,5 +132,14 @@ public class SoccerBall : MonoBehaviour
     //-------------------
     private void UpdateStateWait()
     {
+    }
+
+    //-------------------
+    // EndState
+    //-------------------
+    private void UpdateStateEnd()
+    {
+        rigidbody.velocity = Vector3.zero;
+        this.enabled = false;
     }
 }
