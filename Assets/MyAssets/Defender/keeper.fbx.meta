@@ -3,12 +3,22 @@ guid: e743acefb6c924c65a5344500b80fc0a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: defenderhead
+    second: {fileID: 2800000, guid: 250211d8210074f2189b40f84a71691f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: keeperbody
+    second: {fileID: 2800000, guid: 275e043e82e0a42ebabdb7bf31c9fcaf, type: 3}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 1
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
