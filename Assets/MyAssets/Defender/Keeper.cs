@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Defender : MonoBehaviour
+public class Keeper : MonoBehaviour
 {
     //スピード（調整用）
     [Tooltip("移動速度調整")]
@@ -58,20 +58,20 @@ public class Defender : MonoBehaviour
     }
 
     //ボールに当たったら消滅
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag=="ball")
-        {
-            this.gameObject.SetActive(false);
-            checkDestroy = true;
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.transform.tag=="ball")
+    //    {
+    //        this.gameObject.SetActive(false);
+    //        checkDestroy = true;
 
-            var pos = transform.position;
-
-            //時間差で復活させる
-            DOVirtual.DelayedCall(rePop, ()=> { SetPopDefender(pos); }
-            );
-        }
-    }
+    //        var pos = transform.position;
+    //
+    //        //時間差で復活させる
+    //        DOVirtual.DelayedCall(rePop, ()=> { SetPopDefender(pos); }
+    //        );
+    //    }
+    //}
 
     private void SetPopDefender(Vector3 pos)
     {
