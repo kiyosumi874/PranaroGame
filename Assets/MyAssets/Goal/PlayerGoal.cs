@@ -23,7 +23,7 @@ public class PlayerGoal : MonoBehaviour
         {
             Debug.Log("“_‚ð“ü‚ê‚ç‚ê‚½");
             score.AddScore();
-            other.GetComponent<SoccerBall>().SetState(SoccerBall.State.Init);
+            other.GetComponent<SoccerBall>().SetState(SoccerBall.State.InitLoss);
         }
     }
 }

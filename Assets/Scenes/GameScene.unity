@@ -627,9 +627,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a7f9a29e4426bd04ead2465267f973d3, type: 2}
-  isDebug: 0
+  isDebug: 1
   debugAimPos: {x: 0, y: 1.5, z: -3.5}
   debugSpeed: 10
+  debugLossTimeFaild: 1
+  debugLossTimeSuccess: 0.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

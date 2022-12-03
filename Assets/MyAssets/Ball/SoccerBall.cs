@@ -18,9 +18,17 @@ public class SoccerBall : MonoBehaviour
     [Header("ボールのspeed(Debug用)")]
     [SerializeField] private float debugSpeed;
 
+    [Header("失敗したときのロスタイム(Debug用)")]
+    [SerializeField] private float debugLossTimeFaild = 1.0f;
+
+    [Header("ゴールを決めた時のロスタイム(Debug用)")]
+    [SerializeField] private float debugLossTimeSuccess = 0.5f;
+
     private Vector3 aimPos;
     private Vector3 initPos;
     private float speed;
+    private float lossTimeFaild;
+    private float lossTimeSuccess;
 
     private Dictionary<State, Action> stateFuncs;
 
@@ -32,6 +40,7 @@ public class SoccerBall : MonoBehaviour
         Idle,
         Run,
         Init,
+        InitLoss,
         Wait,
         End
     };
@@ -50,11 +59,15 @@ public class SoccerBall : MonoBehaviour
         {
             aimPos = debugAimPos;
             speed = debugSpeed;
+            lossTimeFaild = debugLossTimeFaild;
+            lossTimeSuccess = debugLossTimeSuccess;
         }
         else
         {
             aimPos = data.AimPos;
             speed = data.Speed;
+            lossTimeFaild = data.LossTimeFaild;
+            lossTimeSuccess = data.LossTimeSuccess;
         }
         initPos = this.transform.position;
         rigidbody = GetComponent<Rigidbody>();
@@ -66,6 +79,7 @@ public class SoccerBall : MonoBehaviour
         stateFuncs[State.Init] = UpdateStateInit;
         stateFuncs[State.Wait] = UpdateStateWait;
         stateFuncs[State.End] = UpdateStateEnd;
+        stateFuncs[State.InitLoss] = UpdateStateInitLoss;
         state = State.Wait;
     }
 
@@ -76,6 +90,8 @@ public class SoccerBall : MonoBehaviour
         {
             aimPos = debugAimPos;
             speed = debugSpeed;
+            lossTimeFaild = debugLossTimeFaild;
+            lossTimeSuccess = debugLossTimeSuccess;
         }
         // ステート管理関数
         StateManager();
@@ -124,7 +140,15 @@ public class SoccerBall : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         this.transform.position = initPos;
         state = State.Wait;
-        StartCoroutine(WaitTime(0.5f, State.Idle));
+        StartCoroutine(WaitTime(lossTimeSuccess, State.Idle));
+    }
+
+    private void UpdateStateInitLoss()
+    {
+        rigidbody.velocity = Vector3.zero;
+        this.transform.position = initPos;
+        state = State.Wait;
+        StartCoroutine(WaitTime(lossTimeFaild, State.Idle));
     }
 
     //-------------------
