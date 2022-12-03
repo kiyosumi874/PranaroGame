@@ -66,7 +66,7 @@ public class SoccerBall : MonoBehaviour
         stateFuncs[State.Init] = UpdateStateInit;
         stateFuncs[State.Wait] = UpdateStateWait;
         stateFuncs[State.End] = UpdateStateEnd;
-        state = State.Idle;
+        state = State.Wait;
     }
 
     // Update is called once per frame
