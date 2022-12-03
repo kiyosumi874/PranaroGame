@@ -11,9 +11,17 @@ public class SoccerBallParamAsset : ScriptableObject
     [Header("ボールのspeed")]
     [SerializeField] private float speed = 1.0f;
 
+    [Header("失敗したときのロスタイム")]
+    [SerializeField] private float lossTimeFaild = 1.0f;
+
+    [Header("ゴールを決めた時のロスタイム")]
+    [SerializeField] private float lossTimeSuccess = 0.5f;
     // aimPosのgetter(ラムダ式を利用し色々省略している)
     public Vector3 AimPos => aimPos;
 
     // speedのgetter
     public float Speed => speed;
+
+    public float LossTimeFaild => lossTimeFaild;
+    public float LossTimeSuccess => lossTimeSuccess;
 }
