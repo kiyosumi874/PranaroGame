@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerGoal : MonoBehaviour
 {
-    [SerializeField] private Score score;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +21,6 @@ public class PlayerGoal : MonoBehaviour
         if (other.CompareTag("SoccerBall"))
         {
             Debug.Log("“_‚ð“ü‚ê‚ç‚ê‚½");
-            score.AddScore();
             other.GetComponent<SoccerBall>().SetState(SoccerBall.State.InitLoss);
         }
     }
