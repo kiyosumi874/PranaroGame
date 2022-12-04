@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    [SerializeField] private GameObject leftPlayer = null;
+    [SerializeField] private GameObject rightPlayer = null;
+
     [Header("–{”Ô—p‚ÌData")]
     [SerializeField] private PlayerParamAsset data = null;
 
@@ -18,10 +21,12 @@ public class PlayerMover : MonoBehaviour
     [Header("Player‚ª“®‚¯‚é”ÍˆÍ(Debug—p)")]
     [SerializeField] private float debugMoveRange = 1.0f;
 
+    
+
+
     private float speedMax = 1.0f;
     private float moveRange = 1.0f;
     private float startPos = 0.0f;
-
     private enum Direction
     {
         Right,
@@ -78,10 +83,14 @@ public class PlayerMover : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && direction == Direction.None)
         {
             speed = speedMax;
+            rightPlayer.SetActive(true);
+            leftPlayer.SetActive(false);
         }
         if (Input.GetKey(KeyCode.LeftArrow) && direction == Direction.None)
         {
             speed = -speedMax;
+            rightPlayer.SetActive(false);
+            leftPlayer.SetActive(true);
         }
         return speed;
     }
@@ -137,4 +146,80 @@ public class PlayerMover : MonoBehaviour
             FixPos(direction);
         }
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SoccerBall"))
+        {
+            var posX = other.GetComponent<SoccerBall>().transform.position.x;
+            var diffX = this.transform.position.x - posX;
+            other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            Vector3 vec = Vector3.zero;
+            
+            if (diffX < -2.0f)
+            {
+                vec.x = 0.5f;
+                vec.y = 0.0f;
+                vec.z = 0.5f;
+            }
+            else if (diffX > 2.0f)
+            {
+
+                vec.x = -0.5f;
+                vec.y = 0.0f;
+                vec.z = 0.5f;
+            }
+            else if (diffX < -1.5f)
+            {
+                vec.x = 0.4f;
+                vec.y = 0.0f;
+                vec.z = 0.6f;
+            }
+            else if (diffX > 1.5f)
+            {
+
+                vec.x = -0.4f;
+                vec.y = 0.0f;
+                vec.z = 0.6f;
+            }
+            else if (diffX < -1.0f)
+            {
+                vec.x = 0.3f;
+                vec.y = 0.0f;
+                vec.z = 0.7f;
+            }
+            else if (diffX > 1.0f)
+            {
+
+                vec.x = -0.3f;
+                vec.y = 0.0f;
+                vec.z = 0.7f;
+            }
+            else if (diffX < -0.5f)
+            {
+
+                vec.x = 0.2f;
+                vec.y = 0.0f;
+                vec.z = 0.8f;
+            }
+            else if (diffX > 0.5f)
+            {
+
+                vec.x = -0.2f;
+                vec.y = 0.0f;
+                vec.z = 0.8f;
+            }
+            else
+            {
+                vec.x = 0.0f;
+                vec.y = 0.0f;
+                vec.z = 1.0f;
+            }
+
+            other.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(vec) * other.GetComponent<SoccerBall>().Speed * 100.0f);
+        }
+    }
 }
+
+
+

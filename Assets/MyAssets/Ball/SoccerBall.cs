@@ -18,9 +18,19 @@ public class SoccerBall : MonoBehaviour
     [Header("ボールのspeed(Debug用)")]
     [SerializeField] private float debugSpeed;
 
+    [Header("失敗したときのロスタイム(Debug用)")]
+    [SerializeField] private float debugLossTimeFaild = 1.0f;
+
+    [Header("ゴールを決めた時のロスタイム(Debug用)")]
+    [SerializeField] private float debugLossTimeSuccess = 0.5f;
+
     private Vector3 aimPos;
     private Vector3 initPos;
     private float speed;
+    private float lossTimeFaild;
+    private float lossTimeSuccess;
+
+    public float Speed => speed;
 
     private Dictionary<State, Action> stateFuncs;
 
@@ -32,6 +42,7 @@ public class SoccerBall : MonoBehaviour
         Idle,
         Run,
         Init,
+        InitLoss,
         Wait,
         End
     };
@@ -50,11 +61,15 @@ public class SoccerBall : MonoBehaviour
         {
             aimPos = debugAimPos;
             speed = debugSpeed;
+            lossTimeFaild = debugLossTimeFaild;
+            lossTimeSuccess = debugLossTimeSuccess;
         }
         else
         {
             aimPos = data.AimPos;
             speed = data.Speed;
+            lossTimeFaild = data.LossTimeFaild;
+            lossTimeSuccess = data.LossTimeSuccess;
         }
         initPos = this.transform.position;
         rigidbody = GetComponent<Rigidbody>();
@@ -66,6 +81,7 @@ public class SoccerBall : MonoBehaviour
         stateFuncs[State.Init] = UpdateStateInit;
         stateFuncs[State.Wait] = UpdateStateWait;
         stateFuncs[State.End] = UpdateStateEnd;
+        stateFuncs[State.InitLoss] = UpdateStateInitLoss;
         state = State.Wait;
     }
 
@@ -76,6 +92,8 @@ public class SoccerBall : MonoBehaviour
         {
             aimPos = debugAimPos;
             speed = debugSpeed;
+            lossTimeFaild = debugLossTimeFaild;
+            lossTimeSuccess = debugLossTimeSuccess;
         }
         // ステート管理関数
         StateManager();
@@ -88,8 +106,35 @@ public class SoccerBall : MonoBehaviour
 
     }
 
+    // 七種類のポジションにランダムで発射
     private void ForceTheBall()
     {
+        var rand = new System.Random((int)Time.time);
+        Vector3 pos = aimPos;
+        switch (rand.Next(0, 7))
+        {
+            case 0:
+                pos.x += -1.0f;
+                break;
+            case 1:
+                pos.x += 1.0f;
+                break;
+            case 2:
+                pos.x += -2.0f;
+                break;
+            case 3:
+                pos.x += 2.0f;
+                break;
+            case 4:
+                pos.x += -3.0f;
+                break;
+            case 5:
+                pos.x += 3.0f;
+                break;
+            default:
+                break;
+        }
+        destinationVecNorm = Vector3.Normalize(pos - transform.position);
         rigidbody.AddForce(destinationVecNorm.x * speed * 100.0f, 0.0f, destinationVecNorm.z * speed * 100.0f);
     }
 
@@ -124,7 +169,15 @@ public class SoccerBall : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
         this.transform.position = initPos;
         state = State.Wait;
-        StartCoroutine(WaitTime(0.5f, State.Idle));
+        StartCoroutine(WaitTime(lossTimeSuccess, State.Idle));
+    }
+
+    private void UpdateStateInitLoss()
+    {
+        rigidbody.velocity = Vector3.zero;
+        this.transform.position = initPos;
+        state = State.Wait;
+        StartCoroutine(WaitTime(lossTimeFaild, State.Idle));
     }
 
     //-------------------
