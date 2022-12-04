@@ -30,6 +30,8 @@ public class SoccerBall : MonoBehaviour
     private float lossTimeFaild;
     private float lossTimeSuccess;
 
+    public float Speed => speed;
+
     private Dictionary<State, Action> stateFuncs;
 
     private Vector3 destinationVecNorm; // 目的地に進む正規化されたベクトル
@@ -104,8 +106,35 @@ public class SoccerBall : MonoBehaviour
 
     }
 
+    // 七種類のポジションにランダムで発射
     private void ForceTheBall()
     {
+        var rand = new System.Random((int)Time.time);
+        Vector3 pos = aimPos;
+        switch (rand.Next(0, 7))
+        {
+            case 0:
+                pos.x += -1.0f;
+                break;
+            case 1:
+                pos.x += 1.0f;
+                break;
+            case 2:
+                pos.x += -2.0f;
+                break;
+            case 3:
+                pos.x += 2.0f;
+                break;
+            case 4:
+                pos.x += -3.0f;
+                break;
+            case 5:
+                pos.x += 3.0f;
+                break;
+            default:
+                break;
+        }
+        destinationVecNorm = Vector3.Normalize(pos - transform.position);
         rigidbody.AddForce(destinationVecNorm.x * speed * 100.0f, 0.0f, destinationVecNorm.z * speed * 100.0f);
     }
 
