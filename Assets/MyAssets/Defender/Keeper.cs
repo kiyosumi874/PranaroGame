@@ -16,45 +16,26 @@ public class Keeper : MonoBehaviour
     [SerializeField] float rePop;
 
     //DefenderのRidid
-    [SerializeField] Rigidbody rigidbody;
+    //[SerializeField] Rigidbody rigidbody;
 
     //消滅管理のBool
     bool checkDestroy = false;
 
+    Vector3 pos ;
+
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        pos = transform.position;
+        //rigidbody = GetComponent<Rigidbody>();
     }
 
 
-    //参考：https://3dcg-school.pro/unity-object-move-beginner/#Rigidbody
+    //参考：https://mono-pro.net/archives/7669
     private void FixedUpdate()
     {
-       var pos = rigidbody.transform.position;
+       
+        transform.position = new Vector3(pos.x + Mathf.PingPong(Time.time * speed, maxMoved), pos.y, pos.z);
 
-        //checkDestroyがONの時は処理を行わない
-        if (checkDestroy)
-        {
-            return;
-        }
-
-        //X座標がMAX値より小さい場合
-        if (pos.x < maxMoved)
-        {
-            //指定したスピードから現在の速度を引いて加速力を求める
-            float currentSpeed = speed - rigidbody.velocity.magnitude;
-            //調整された加速力で力を加える
-            rigidbody.AddForce(new Vector3(currentSpeed, 0, 0));
-
-
-        } //X座標がMAX値より大きい場合
-        else if (pos.x >= maxMoved)
-        {
-            //指定したスピードから現在の速度を引いて加速力を求める
-            float currentSpeed = speed - rigidbody.velocity.magnitude;
-            //調整された加速力で力を加える
-            rigidbody.AddForce(new Vector3(-currentSpeed, 0, 0));
-        }
     }
 
     //ボールに当たったら消滅
