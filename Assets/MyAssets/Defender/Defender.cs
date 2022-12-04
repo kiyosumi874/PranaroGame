@@ -16,55 +16,49 @@ public class Defender : MonoBehaviour
     [SerializeField] float rePop;
 
     //DefenderのRidid
-    [SerializeField] Rigidbody rigidbody;
+    //[SerializeField] Rigidbody rigidbody;
 
-    //移動の方向を変更するための変数
-    int randSp =1;
-
+    Vector3 pos;
     //消滅管理のBool
     bool checkDestroy = false;
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-
-        randSp = Random.Range(-1, 1);
-        //0の場合は１へ（乗算するので、０だとまずい）
-        if (randSp==0)
-        {
-            randSp = 1;
-        }
+        pos = transform.position;
     }
 
 
     //参考：https://3dcg-school.pro/unity-object-move-beginner/#Rigidbody
     private void FixedUpdate()
     {
-       var pos = rigidbody.transform.position;
-
+        //Transform myTransform = transform;
+        //Vector3 pos = myTransform.position;
+        
         //checkDestroyがONの時は処理を行わない
         if (checkDestroy)
         {
             return;
         }
 
+        transform.position = new Vector3(pos.x + Mathf.PingPong(Time.time*speed, maxMoved), pos.y, pos.z);
+
         //X座標がMAX値より小さい場合
-        if (pos.x < maxMoved)
-        {
-            //指定したスピードから現在の速度を引いて加速力を求める
-            float currentSpeed = speed - rigidbody.velocity.magnitude;
-            //調整された加速力で力を加える
-            rigidbody.AddForce(new Vector3(currentSpeed * randSp, 0, 0));
+        //if (pos.x < defoultXpos + maxMoved)
+        //{
+        //  pos.x += speed * Time.deltaTime;
+        //   myTransform.position = pos;
 
+        //} //X座標がMAX値より大きい場合
+        //else if (pos.x > defoultXpos)
+        //{
+        //  pos.x -= speed * Time.deltaTime;
+        //  myTransform.position = pos;
 
-        } //X座標がMAX値より大きい場合
-        else if (pos.x >= maxMoved)
-        {
-            //指定したスピードから現在の速度を引いて加速力を求める
-            float currentSpeed = speed - rigidbody.velocity.magnitude;
-            //調整された加速力で力を加える
-            rigidbody.AddForce(new Vector3(-currentSpeed * randSp, 0, 0));
-        }
+        //指定したスピードから現在の速度を引いて加速力を求める
+        //float currentSpeed = speed - GetComponent<Rigidbody>().velocity.magnitude;
+        //調整された加速力で力を加える
+        //GetComponent<Rigidbody>().AddForce(new Vector3(-currentSpeed * randSp, 0, 0));
+        //}
     }
 
     //ボールに当たったら消滅
