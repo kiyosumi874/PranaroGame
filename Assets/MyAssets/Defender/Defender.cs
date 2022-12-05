@@ -23,13 +23,17 @@ public class Defender : MonoBehaviour
     bool checkDestroy = false;
 
     //animation
-    [SerializeField] GameObject crossObj;
-    [SerializeField] Animator animator;
+    [SerializeField] GameObject dfObj,crossObj;
+
+    Collider collider;
 
     private void Start()
     {
         pos = transform.position;
+        dfObj.SetActive(true);
         crossObj.SetActive(false);
+        collider = GetComponent<Collider>();
+
     }
 
 
@@ -71,13 +75,14 @@ public class Defender : MonoBehaviour
     {
         if (collision.transform.tag== "SoccerBall")
         {
-            this.gameObject.SetActive(false);
+            collider.enabled = false;
+
+            dfObj.SetActive(false);
+            crossObj.SetActive(true);
             checkDestroy = true;
 
             var pos = transform.position;
-
-            Instantiate(crossObj, pos,Quaternion.identity);
-            //animator.Play("1");
+            
 
             //時間差で復活させる
             DOVirtual.DelayedCall(rePop, ()=> { SetPopDefender(pos); }
@@ -87,12 +92,11 @@ public class Defender : MonoBehaviour
 
     private void SetPopDefender(Vector3 pos)
     {
-        this.gameObject.SetActive(true);
-
         this.gameObject.transform.position = pos;
         checkDestroy = false;
-        Destroy(crossObj);
-
+        dfObj.SetActive(true);
+        crossObj.SetActive(false);
+        collider.enabled = true;
     }
 
 }

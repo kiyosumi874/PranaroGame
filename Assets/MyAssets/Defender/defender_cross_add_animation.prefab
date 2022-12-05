@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1255194902817340785}
   m_Layer: 0
   m_Name: defender_cross_add_animation
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
