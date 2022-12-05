@@ -147,6 +147,8 @@ MonoBehaviour:
   speed: 4
   maxMoved: 2
   rePop: 5
+  crossObj: {fileID: 2137574629198512162, guid: a0c2e12243cdc4077b5057d3759a6e67, type: 3}
+  animator: {fileID: 1255194902817340785, guid: a0c2e12243cdc4077b5057d3759a6e67, type: 3}
 --- !u!1 &7673697283347450544
 GameObject:
   m_ObjectHideFlags: 0

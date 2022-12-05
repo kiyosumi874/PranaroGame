@@ -26,6 +26,7 @@ public class Keeper : MonoBehaviour
     private void Start()
     {
         pos = transform.position;
+        
         //rigidbody = GetComponent<Rigidbody>();
     }
 

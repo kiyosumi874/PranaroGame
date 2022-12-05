@@ -22,9 +22,14 @@ public class Defender : MonoBehaviour
     //消滅管理のBool
     bool checkDestroy = false;
 
+    //animation
+    [SerializeField] GameObject crossObj;
+    [SerializeField] Animator animator;
+
     private void Start()
     {
         pos = transform.position;
+        crossObj.SetActive(false);
     }
 
 
@@ -71,6 +76,9 @@ public class Defender : MonoBehaviour
 
             var pos = transform.position;
 
+            Instantiate(crossObj, pos,Quaternion.identity);
+            //animator.Play("1");
+
             //時間差で復活させる
             DOVirtual.DelayedCall(rePop, ()=> { SetPopDefender(pos); }
             );
@@ -83,7 +91,8 @@ public class Defender : MonoBehaviour
 
         this.gameObject.transform.position = pos;
         checkDestroy = false;
-        Debug.Log("再POP");
+        Destroy(crossObj);
+
     }
 
 }
