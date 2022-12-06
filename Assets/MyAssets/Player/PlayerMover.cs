@@ -215,7 +215,7 @@ public class PlayerMover : MonoBehaviour
                 vec.y = 0.0f;
                 vec.z = 1.0f;
             }
-
+            //other.GetComponent<Rigidbody>().AddTorque(Vector3.Normalize(vec).x * -1000.0f,0.0f, Vector3.Normalize(vec).z * -1000.0f);
             other.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(vec) * other.GetComponent<SoccerBall>().Speed * 100.0f);
         }
     }
