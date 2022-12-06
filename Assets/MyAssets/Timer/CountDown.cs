@@ -12,6 +12,7 @@ public class CountDown : MonoBehaviour
 	[SerializeField] private bool isFloat = true;
 
 	[SerializeField] private bool isImage = false;
+	[SerializeField] private bool isStartTimer = false;
 
 	[SerializeField] private TMP_Text textCountDown = null;
 	[SerializeField] private Image image = null;
@@ -54,19 +55,47 @@ public class CountDown : MonoBehaviour
 					}
 					else
                     {
-						if (time == 3)
-						{
-							image.enabled = true;
-							image.sprite = sprite[0];
+						if (isStartTimer)
+                        {
+							if (time == 3)
+							{
+								image.enabled = true;
+								image.sprite = sprite[0];
+							}
+							if (time == 2)
+							{
+								image.sprite = sprite[1];
+							}
+							if (time == 1)
+							{
+								image.sprite = sprite[2];
+							}
 						}
-						if (time == 2)
-						{
-							image.sprite = sprite[1];
+						else
+                        {
+							if (time == 5)
+							{
+								image.enabled = true;
+								image.sprite = sprite[0];
+							}
+							if (time == 4)
+							{
+								image.sprite = sprite[1];
+							}
+							if (time == 3)
+							{
+								image.sprite = sprite[2];
+							}
+							if (time == 2)
+							{
+								image.sprite = sprite[3];
+							}
+							if (time == 1)
+							{
+								image.sprite = sprite[4];
+							}
 						}
-						if (time == 1)
-						{
-							image.sprite = sprite[2];
-						}
+						
 					}
 				}
 				isEnd = true;
@@ -88,18 +117,45 @@ public class CountDown : MonoBehaviour
 					}
 					else
 					{
-						if (time == 3)
+						if (isStartTimer)
+						{
+							if (time == 3)
+							{
+								image.enabled = true;
+								image.sprite = sprite[0];
+							}
+							if (time == 2)
+							{
+								image.sprite = sprite[1];
+							}
+							if (time == 1)
+							{
+								image.sprite = sprite[2];
+							}
+						}
+						else
                         {
-							image.enabled = true;
-							image.sprite = sprite[0];
-						}
-						if (time == 2)
-						{
-							image.sprite = sprite[1];
-						}
-						if (time == 1)
-						{
-							image.sprite = sprite[2];
+							if (time == 5)
+							{
+								image.enabled = true;
+								image.sprite = sprite[0];
+							}
+							if (time == 4)
+							{
+								image.sprite = sprite[1];
+							}
+							if (time == 3)
+							{
+								image.sprite = sprite[2];
+							}
+							if (time == 2)
+							{
+								image.sprite = sprite[3];
+							}
+							if (time == 1)
+							{
+								image.sprite = sprite[4];
+							}
 						}
 					}
 				}
