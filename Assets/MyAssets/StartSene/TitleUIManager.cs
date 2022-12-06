@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class TitleUIManager : MonoBehaviour
 {
-    //ボタン類
+    //?{?^????
     [SerializeField] GameObject TitleUIStart, TitleUIOperation, TitleUICredit;
 
-    //パネル類
+    //?p?l????
     [SerializeField] GameObject TitleOperationPanel, TitleCreditPanel;
 
     private void Awake()
     {
-        //パネルは初期から非表示
+        //?p?l???????????????\??
         TitleOperationPanel.SetActive(false);
         TitleCreditPanel.SetActive(false);
     }
 
-    //ゲームスタートボタン
+    //?Q?[???X?^?[?g?{?^??
     public void GoGame()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("GameScene");
     }
 
-    //ボタン制御用
+    //?{?^???????p
     public void SetButton(bool onoff)
     {
         TitleUIStart.SetActive(onoff);
@@ -32,7 +32,7 @@ public class TitleUIManager : MonoBehaviour
         TitleUICredit.SetActive(onoff);
     }
 
-    //パネル表示
+    //?p?l???\??
     public void OnPanel(GameObject panels)
     {
         panels.SetActive(true);
