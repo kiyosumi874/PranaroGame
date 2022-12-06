@@ -20,7 +20,8 @@ public class StartTimerUI : MonoBehaviour
         if (countDown.IsEnd && !onEvent)
         {
             onEvent = true;
-            timerUI.SetActive(true);
+            timerUI.GetComponent<CountDown>().enabled = true;
+            timerUI.GetComponent<TimerUI>().enabled = true;
             soccerBall.SetState(SoccerBall.State.Idle);
             this.gameObject.SetActive(false);
         }
