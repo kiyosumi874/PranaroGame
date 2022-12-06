@@ -165,7 +165,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1723ca7a8e99b4305970730a6d760ec2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dced0b963890c4e628c5d6a3734a29ab, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -3043,7 +3043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4427,6 +4427,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8289925766557835862, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925766587466296, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925766824753557, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925766884037435, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925767310888733, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925767637125245, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925768212844403, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
+    - target: {fileID: 8289925768275256882, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7eb45cbdb480b6b4d88c108c8ae460c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1f5f6bbfe0e48a49831868020c4e0ac, type: 3}
 --- !u!1001 &7595787846909482217
