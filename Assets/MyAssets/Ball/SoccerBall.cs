@@ -135,6 +135,8 @@ public class SoccerBall : MonoBehaviour
                 break;
         }
         destinationVecNorm = Vector3.Normalize(pos - transform.position);
+        //rigidbody.AddTorque(-destinationVecNorm.x * speed * 100.0f, 0.0f, -destinationVecNorm.z * speed * 100.0f);
+
         rigidbody.AddForce(destinationVecNorm.x * speed * 100.0f, 0.0f, destinationVecNorm.z * speed * 100.0f);
     }
 
@@ -167,6 +169,7 @@ public class SoccerBall : MonoBehaviour
     private void UpdateStateInit()
     {
         rigidbody.velocity = Vector3.zero;
+        //rigidbody.angularVelocity = Vector3.zero;
         this.transform.position = initPos;
         state = State.Wait;
         StartCoroutine(WaitTime(lossTimeSuccess, State.Idle));
@@ -175,6 +178,7 @@ public class SoccerBall : MonoBehaviour
     private void UpdateStateInitLoss()
     {
         rigidbody.velocity = Vector3.zero;
+        //rigidbody.angularVelocity = Vector3.zero;
         this.transform.position = initPos;
         state = State.Wait;
         StartCoroutine(WaitTime(lossTimeFaild, State.Idle));
@@ -193,6 +197,19 @@ public class SoccerBall : MonoBehaviour
     private void UpdateStateEnd()
     {
         rigidbody.velocity = Vector3.zero;
+        //rigidbody.angularVelocity = Vector3.zero;
         this.enabled = false;
+    }
+
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    rigidbody.angularVelocity = Vector3.zero;
+    //    rigidbody.AddTorque(GetDirection().x * speed * -100.0f, 0.0f, GetDirection().z * speed * -100.0f);
+    //}
+
+
+    private Vector3 GetDirection()
+    {
+        return Vector3.Normalize(rigidbody.velocity);
     }
 }

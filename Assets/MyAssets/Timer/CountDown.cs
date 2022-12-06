@@ -11,8 +11,13 @@ public class CountDown : MonoBehaviour
 	[Header("数字のフォーマット")]
 	[SerializeField] private bool isFloat = true;
 
+	[SerializeField] private bool isImage = false;
+
+	[SerializeField] private TMP_Text textCountDown = null;
+	[SerializeField] private Image image = null;
+	[SerializeField] private Sprite[] sprite = null;
+
 	private float countDownTime;  // カウントダウンタイム
-	private TMP_Text textCountDown;              // 表示用テキストUI
 	private bool isEnd;
 	public bool IsEnd => isEnd;
 	public float CountDownTime => countDownTime;
@@ -23,7 +28,6 @@ public class CountDown : MonoBehaviour
 	void Start()
 	{
 		countDownTime = startTime;  // カウントダウン開始秒数をセット
-		textCountDown = GetComponent<TMP_Text>();
 		isEnd = false;
 	}
 
@@ -43,7 +47,27 @@ public class CountDown : MonoBehaviour
 				else
                 {
 					int time = (int)countDownTime+1;
-					textCountDown.text = String.Format("{0:0}", time);
+
+					if (!isImage)
+                    {
+						textCountDown.text = String.Format("{0:0}", time);
+					}
+					else
+                    {
+						if (time == 3)
+						{
+							image.enabled = true;
+							image.sprite = sprite[0];
+						}
+						if (time == 2)
+						{
+							image.sprite = sprite[1];
+						}
+						if (time == 1)
+						{
+							image.sprite = sprite[2];
+						}
+					}
 				}
 				isEnd = true;
 			}
@@ -56,8 +80,28 @@ public class CountDown : MonoBehaviour
 				}
 				else
 				{
-					int time = (int)countDownTime+1;
-					textCountDown.text = String.Format("{0:0}", time);
+					int time = (int)countDownTime+1; 
+
+					if (!isImage)
+					{
+						textCountDown.text = String.Format("{0:0}", time);
+					}
+					else
+					{
+						if (time == 3)
+                        {
+							image.enabled = true;
+							image.sprite = sprite[0];
+						}
+						if (time == 2)
+						{
+							image.sprite = sprite[1];
+						}
+						if (time == 1)
+						{
+							image.sprite = sprite[2];
+						}
+					}
 				}
 				// 経過時刻を引いていく
 				countDownTime -= Time.deltaTime;
