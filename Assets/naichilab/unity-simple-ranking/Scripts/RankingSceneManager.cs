@@ -20,6 +20,7 @@ namespace naichilab
         [SerializeField] InputField nameInputField;
         [SerializeField] Button sendScoreButton;
         [SerializeField] Button closeButton;
+        [SerializeField] Button retry;
         [SerializeField] RectTransform scrollViewContent;
         [SerializeField] GameObject rankingNodePrefab;
         [SerializeField] GameObject readingNodePrefab;
@@ -242,6 +243,12 @@ namespace naichilab
             UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
 
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Ranking");
+        }
+
+        public void OnRetryClick()
+        {
+            retry.interactable = false;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
         }
 
         private void MaskOffOn()
