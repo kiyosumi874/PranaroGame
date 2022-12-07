@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyGoal : MonoBehaviour
 {
     [SerializeField] private Score score;
+    [SerializeField] private SoundPlayer goalSE;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class EnemyGoal : MonoBehaviour
         if (other.CompareTag("SoccerBall"))
         {
             Debug.Log("“_‚ð“ü‚ê‚½");
+            goalSE.Play();
             score.AddScore();
             other.GetComponent<SoccerBall>().SetState(SoccerBall.State.Init);
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 public class SoccerBall : MonoBehaviour
 {
+    [SerializeField] private SoundPlayer reflectSound = null;
+    //[SerializeField] private GameObject effectPrefab;
     [Header("本番用のData")]
     [SerializeField] private SoccerBallParamAsset data = null;
 
@@ -23,6 +25,7 @@ public class SoccerBall : MonoBehaviour
 
     [Header("ゴールを決めた時のロスタイム(Debug用)")]
     [SerializeField] private float debugLossTimeSuccess = 0.5f;
+
 
     private Vector3 aimPos;
     private Vector3 initPos;
@@ -211,5 +214,22 @@ public class SoccerBall : MonoBehaviour
     private Vector3 GetDirection()
     {
         return Vector3.Normalize(rigidbody.velocity);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerGoal") || other.CompareTag("EnemyGoal"))
+        {
+            return;
+        }
+        reflectSound.Play();
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        reflectSound.Play();
+        //var tran = this.transform;
+        //tran.localScale = new Vector3(2.0f, 2.0f, 1.0f);
+        //Instantiate(effectPrefab, tran);
     }
 }
