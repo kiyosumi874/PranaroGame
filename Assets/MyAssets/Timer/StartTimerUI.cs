@@ -7,6 +7,8 @@ public class StartTimerUI : MonoBehaviour
     [SerializeField] private CountDown countDown = null;
     [SerializeField] private GameObject timerUI = null;
     [SerializeField] private SoccerBall soccerBall = null;
+    [SerializeField] private SoundPlayer bgm = null;
+    [SerializeField] private SoundPlayer whistle = null;
     private bool onEvent;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,8 @@ public class StartTimerUI : MonoBehaviour
         if (countDown.IsEnd && !onEvent)
         {
             onEvent = true;
+            bgm.Play();
+            whistle.Play();
             timerUI.GetComponent<CountDown>().enabled = true;
             timerUI.GetComponent<TimerUI>().enabled = true;
             soccerBall.SetState(SoccerBall.State.Idle);
